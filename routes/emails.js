@@ -8,7 +8,6 @@ const email = require('../Models/email');
 const nodeMailer = require('nodemailer');
 
 router.post('/', catchAsync(async (req, res) => {
-    console.log(req.body);
     const mail = new email(req.body);
     var transporter = nodeMailer.createTransport({
         service: 'gmail',
