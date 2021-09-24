@@ -33,7 +33,7 @@ router.post('/', upload.array('image'), validateCampground, catchAsync(async (re
     campground.image = req.files.map(f => ({ url: f.path, filename: f.filename }));
     campground.author = req.user._id;
     await campground.save();
-    console.log(campground);
+    
     req.flash('success', 'Campground Successfully Saved !')
     res.redirect(`/campgrounds/${campground._id}`);
 }));
