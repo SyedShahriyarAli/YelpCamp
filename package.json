@@ -1,7 +1,6 @@
 {
   "name": "yelpcamp",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "cloudinary": "^1.23.0",
@@ -28,5 +27,14 @@
     "start": "node index.js"
   },
   "author": "shahriyar",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SyedShahriyarAli/YelpCamp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SyedShahriyarAli/YelpCamp/issues"
+  },
+  "homepage": "https://github.com/SyedShahriyarAli/YelpCamp#readme",
+  "description": ""
 }
