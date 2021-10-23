@@ -10,7 +10,9 @@ const nodeMailer = require('nodemailer');
 router.post('/', catchAsync(async (req, res) => {
     const mail = new email(req.body);
     var transporter = nodeMailer.createTransport({
-        service: 'gmail',
+      host: "mail.turf.pk",
+      port: 26,
+      secure: false,
         auth: {
           user: process.env.EMAIL,
           pass: process.env.PASSWORD
