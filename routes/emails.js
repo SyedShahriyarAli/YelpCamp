@@ -19,7 +19,7 @@ router.post('/', catchAsync(async (req, res) => {
 
       var mailOptions = {
         from: process.env.EMAIL,
-        to: process.env.EMAIL,
+        to: "shahriyarali08@gmail.com",
         subject: 'MAIL FROM ' + mail.email,
         html: '<center>Mail from <b>' + mail.name +'<b> .. </center><br>' + mail.message 
       };

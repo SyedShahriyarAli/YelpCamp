@@ -23,6 +23,7 @@ const localStrategy = require('passport-local');
 const user = require('./Models/user');
 const MongoDBStore = require("connect-mongo")(session);
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelpCamp';//process.env.DB_URL;
+var cors = require('cors');
 mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false })
 
 const db = mongoose.connection;
@@ -37,7 +38,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'));
 app.use(flash());
 app.use(express.static('public'));
-
+app.use(cors({origin: '*'}));
 
 const secret = process.env.SECRET || "thisShouldBeABetterSecret";
 const store = new MongoDBStore({
