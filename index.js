@@ -16,6 +16,7 @@ const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
 const userRoutes = require('./routes/users');
 const emails = require('./routes/emails');
+const android = require('./routes/android');
 const session = require('express-session');
 const flash = require('connect-flash')
 const passport = require('passport');
@@ -85,6 +86,7 @@ app.use((req, res, next) => {
 app.use('/campgrounds', campgrounds)
 app.use('/campgrounds/:id/reviews', reviews)
 app.use('/mail',emails)
+app.use('/mobile',android)
 
 app.use('/', userRoutes);
 
