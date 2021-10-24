@@ -35,7 +35,7 @@ router.post('/login', passport.authenticate('local', { failureFlash: true, failu
     res.redirect(redirectUrl);
 })
 
-router.post('/signin', passport.authenticate('local', { failureFlash: true, failureRedirect: '/' }), (req, res) => {
+router.post('/signin', passport.authenticate('local', { failureFlash: true}), (req, res) => {
     res.sendStatus(200,"Authenticated");
 })
 
