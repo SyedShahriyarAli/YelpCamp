@@ -39,7 +39,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'));
 app.use(flash());
 app.use(express.static('public'));
-app.use(cors({origin: '*'}));
+app.use(cors({credentials: 'include', origin: '*'}));
 
 const secret = process.env.SECRET || "thisShouldBeABetterSecret";
 const store = new MongoDBStore({
