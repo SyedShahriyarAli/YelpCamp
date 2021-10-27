@@ -19,4 +19,9 @@ router.get('/session', isLoggedIn, catchAsync(async (req, res) => {
     res.send('Authorized')
 }));
 
+router.get('/logout', (req, res) => {
+    req.logout();
+    res.send('Logged Out');
+})
+
 module.exports = router
