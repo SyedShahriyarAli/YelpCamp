@@ -9,6 +9,7 @@ const { campgroundSchema } = require('../Schemas');
 const multer = require('multer')
 const { storage } = require('../cloudinary');
 const upload = multer({ storage });
+const Review = require('../Models/Review')
 
 const validateCampground = (req, res, next) => {
   const { error } = campgroundSchema.validate(req.body);
@@ -25,20 +26,10 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
 });
 
 router.get("/", catchAsync(async (req, res) => {
-    const campgrounds = await Campgroud.find({}).sort({ _id: -1 });
+    const campgrounds = await Campgroud.find({}).sort({ _id: -1 }).populate('author');
     res.send(JSON.stringify(campgrounds));
   })
 );
-
-router.get( "/session", isLoggedIn, catchAsync(async (req, res) => {
-    res.send("Authorized");
-  })
-);
-
-router.get("/logout", (req, res) => { 
-  req.logout();
-  res.send("Logged Out");
-});
 
 router.post('/', upload.array('image'), validateCampground, catchAsync(async (req, res, next) => {
   const campground = new Campgroud(req.body.campground);
@@ -48,5 +39,25 @@ router.post('/', upload.array('image'), validateCampground, catchAsync(async (re
 
   res.sendStatus(200);
 }));
+
+router.get("/:id/reviews", catchAsync(async (req, res) => {
+  const reviews =  await Campgroud.findById(req.params.id).populate({
+        path: 'reviews', populate: {
+            path: 'author'
+        }
+    })
+  res.send(JSON.stringify(reviews.reviews));
+})
+);
+
+router.post('/:id/reviews', catchAsync(async (req, res) => {
+  const campground = await Campgroud.findById(req.params.id);
+  const review = new Review(req.body.review);
+  review.author = req.body.user._id;
+  campground.reviews.push(review);
+  await review.save();
+  await campground.save();
+  res.send("Success");
+}))
 
 module.exports = router;
