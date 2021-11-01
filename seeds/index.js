@@ -3,7 +3,7 @@ const cities = require('./cities.js');
 const Campgroud = require('../Models/Campgroud');
 const { places, descriptors } = require('./seedHelpers');
 
-mongoose.connect('mongodb://localhost:27017/yelpCamp', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://syedshahriyarali:y4RatJdxNP2G4tAc@cluster0.ttnjb.mongodb.net/yelpCamp?retryWrites=true&w=majority', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
 
 const db = mongoose.connection;
 db.on("error", console.error.bind("connection error:"));
@@ -20,17 +20,17 @@ const seedDB = async () => {
         const random1000 = Math.floor(Math.random() * 1000);
         const price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campgroud({
-            author: '5ffca1aa278be0184893665d',
+            author: '617ee3b19e0d310016f0bdc8',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             image: [
                 {
-                    url: 'https://res.cloudinary.com/syedshahriyarali/image/upload/v1610482922/YelpCamp/wu8mv1xzeckpkmjcoclw.jpg',
-                    filename: 'YelpCamp/wu8mv1xzeckpkmjcoclw'
+                    url: 'https://res.cloudinary.com/syedshahriyarali/image/upload/v1635705985/YelpCamp/oq1pfl8s3dh52uyqc752.jpg',
+                    filename: 'YelpCamp/oq1pfl8s3dh52uyqc752'
                 },
                 {
-                    url: 'https://res.cloudinary.com/syedshahriyarali/image/upload/v1610482922/YelpCamp/ub0pnpxhitobur8eedg7.jpg',
-                    filename: 'YelpCamp/ub0pnpxhitobur8eedg7'
+                    url: 'https://res.cloudinary.com/syedshahriyarali/image/upload/v1635709872/YelpCamp/lclqyknw6xah8rpvk94g.jpg',
+                    filename: 'YelpCamp/lclqyknw6xah8rpvk94g'
                 }
             ],
             description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam dolores obcaecati nisi ducimus nobis, esse iste quam eos voluptates delectus exercitationem doloribus harum ex quod nostrum modi voluptatibus a aspernatur.',

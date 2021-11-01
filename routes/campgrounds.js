@@ -33,7 +33,7 @@ router.post('/', upload.array('image'), validateCampground, catchAsync(async (re
     campground.image = req.files.map(f => ({ url: f.path, filename: f.filename }));
     campground.author = req.user._id;
     await campground.save();
-    
+
     req.flash('success', 'Campground Successfully Saved !')
     res.redirect(`/campgrounds/${campground._id}`);
 }));
@@ -67,9 +67,9 @@ router.put('/:id', upload.array('image'), catchAsync(async (req, res) => {
     campground.image.push(...imgs);
     await campground.save();
     if (req.body.deleteImages) {
-        // for (let filename of req.body.deleteImages) {
-        //     await storage.uploader.destroy(filename);
-        // }
+        for (let filename of req.body.deleteImages) {
+            await storage.cloudinary.uploader.destroy(filename);
+        }
         await campground.updateOne({ $pull: { image: { filename: { $in: req.body.deleteImages } } } })
     }
     req.flash('success', 'Campground Successfully Updated !')
