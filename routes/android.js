@@ -58,6 +58,12 @@ router.post('/:id/reviews', catchAsync(async (req, res) => {
   await review.save();
   await campground.save();
   res.send("Success");
+}));
+
+router.delete('/:id/reviews/:reviewId', catchAsync(async (req, res) => {
+  await Campgroud.findByIdAndUpdate(req.params.id, { $pull: { reviews: req.params.reviewId } })
+  await Review.findByIdAndDelete(req.params.reviewId);
+  res.send('Success')
 }))
 
 module.exports = router;
