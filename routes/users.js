@@ -3,15 +3,19 @@ const router = express.Router();
 const User = require('../Models/user');
 const catchAsync = require('../Utils/catchAsync');
 const passport = require('passport');
+const multer = require('multer')
+const { storage } = require('../cloudinary');
+const upload = multer({ storage });
 
 router.get('/register', (req, res) => {
     res.render('users/register')
 })
 
-router.post('/register', catchAsync(async (req, res) => {
+router.post('/register', upload.single('image'), catchAsync(async (req, res) => {
     try {
         const { email, username, password } = req.body
         const user = new User({ email, username });
+        user.image = { url: req.file.path, filename: req.file.filename };
         const registereduser = await User.register(user, password);
         req.login(registereduser, err => {
             if (err) return next(err);
