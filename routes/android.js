@@ -9,7 +9,7 @@ const { isLoggedIn } = require("../middleware-android");
 const { campgroundSchema } = require('../Schemas');
 const multer = require('multer')
 const { storage } = require('../cloudinary');
-const upload = multer({ storage });
+var upload = multer({ storage });
 const Review = require('../Models/Review')
 
 const validateCampground = (req, res, next) => {
@@ -22,24 +22,29 @@ const validateCampground = (req, res, next) => {
   }
 }
 
+const changeFolder = (req, res, next) => {
+  upload.storage.params.folder = 'YelpCamp';
+  next();
+}
+
 router.post("/login", passport.authenticate("local"), (req, res) => {
   res.send(JSON.stringify(req.user));
 });
 
-router.post('/register', upload.single('image'), catchAsync(async (req, res) => {
+router.post('/register', changeFolder, upload.single('image'), catchAsync(async (req, res) => {
   try {
-      const { email, username, password } = req.body
-      const user = new User({ email, username });
-      user.image = { url: req.file.path, filename: req.file.filename };
-      const registereduser = await User.register(user, password);
-      req.login(registereduser, err => {
-          if (err) return next(err);
-         res.send(req.user);
-      })
+    const { email, username, password } = req.body
+    const user = new User({ email, username });
+    user.image = { url: req.file.path, filename: req.file.filename };
+    const registereduser = await User.register(user, password);
+    req.login(registereduser, err => {
+      if (err) return next(err);
+      res.send(req.user);
+    })
   }
   catch (e) {
-      req.flash('error', e.message);
-      res.redirect('/register');
+    console.log(e.message);
+    res.sendStatus(500);
   }
 }))
 
@@ -91,10 +96,10 @@ router.put('/:id', upload.array('image'), catchAsync(async (req, res) => {
   for (let image of campground.image) {
     await storage.cloudinary.uploader.destroy(image.filename);
   }
-  await campground.updateOne({ $pull: { image: { } } })
+  await campground.updateOne({ $pull: { image: {} } })
   campground.image.push(...imgs);
   await campground.save();
-  
+
   res.send("Success")
 }));
 
