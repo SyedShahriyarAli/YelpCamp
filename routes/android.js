@@ -23,7 +23,10 @@ const validateCampground = (req, res, next) => {
 }
 
 const changeFolder = (req, res, next) => {
-  upload.storage.params.folder = 'YelpCamp';
+  if (req.headers.username)
+    upload.storage.params.folder = `YelpCamp/${req.headers.username}`;
+  else
+    upload.storage.params.folder = 'YelpCamp/Users';
   next();
 }
 
@@ -54,7 +57,7 @@ router.get("/", catchAsync(async (req, res) => {
 })
 );
 
-router.post('/', upload.array('image'), validateCampground, catchAsync(async (req, res, next) => {
+router.post('/', changeFolder, upload.array('image'), validateCampground, catchAsync(async (req, res, next) => {
   const campground = new Campgroud(req.body.campground);
   campground.image = req.files.map(f => ({ url: f.path, filename: f.filename }));
   campground.author = req.body.user._id;
@@ -89,7 +92,7 @@ router.delete('/:id/reviews/:reviewId', catchAsync(async (req, res) => {
   res.send('Success')
 }))
 
-router.put('/:id', upload.array('image'), catchAsync(async (req, res) => {
+router.put('/:id', changeFolder, upload.array('image'), catchAsync(async (req, res) => {
   const { id } = req.params
   const campground = await Campgroud.findByIdAndUpdate(id, { ...req.body.campground });
   const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));

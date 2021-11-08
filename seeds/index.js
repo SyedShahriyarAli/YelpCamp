@@ -9,6 +9,11 @@ const db = mongoose.connection;
 db.on("error", console.error.bind("connection error:"));
 db.once("open", () => {
     console.log("Database connected");
+    seedDB()
+        .then(() => {
+            mongoose.connection.close();
+        })
+    console.log("Completed")    
 });
 
 const sample = array => array[Math.floor(Math.random() * array.length)];
@@ -16,21 +21,21 @@ const sample = array => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
     await Campgroud.deleteMany({});
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 10; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campgroud({
-            author: '61811c9f5adac932ac3c35d4',
+            author: '61890f8bb4bba5337c7e4168',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             image: [
                 {
-                    url: 'https://res.cloudinary.com/syedshahriyarali/image/upload/v1635705985/YelpCamp/oq1pfl8s3dh52uyqc752.jpg',
-                    filename: 'YelpCamp/oq1pfl8s3dh52uyqc752'
+                    url: 'https://res.cloudinary.com/syedshahriyarali/image/upload/v1636377038/YelpCamp/shahriyar/y56x3267a3g0p04yvkpp.jpg',
+                    filename: 'YelpCamp/shahriyar/y56x3267a3g0p04yvkpp'
                 },
                 {
-                    url: 'https://res.cloudinary.com/syedshahriyarali/image/upload/v1635709872/YelpCamp/lclqyknw6xah8rpvk94g.jpg',
-                    filename: 'YelpCamp/lclqyknw6xah8rpvk94g'
+                    url: 'https://res.cloudinary.com/syedshahriyarali/image/upload/v1636377040/YelpCamp/shahriyar/ejtacxbjqbfjufvtpgnc.jpg',
+                    filename: 'YelpCamp/shahriyar/ejtacxbjqbfjufvtpgnc'
                 }
             ],
             description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam dolores obcaecati nisi ducimus nobis, esse iste quam eos voluptates delectus exercitationem doloribus harum ex quod nostrum modi voluptatibus a aspernatur.',
@@ -39,8 +44,3 @@ const seedDB = async () => {
         await camp.save();
     }
 }
-
-seedDB()
-    .then(() => {
-        mongoose.connection.close();
-    })
