@@ -9,10 +9,19 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
     cloudinary,
-    params: {
-        folder: 'YelpCamp',
-        allowedFormats: ['jpeg', 'png', 'jpg']
-    }
+    params: async (req, file) => {
+
+        var folderName = 'YelpCamp/Users';
+        if (req.headers.username)
+            folderName = `YelpCamp/${req.headers.username}`;
+
+        return {
+            folder: folderName,
+            resource_type: "raw",
+            format: file.originalname.split(".").pop(),
+            public_id: file.originalname
+        };
+    },
 });
 
 module.exports = {
