@@ -19,11 +19,11 @@ To install Yelpcamp, follow these steps:
 2. Install the necessary dependencies: `npm install`
 3. Set up a local MongoDB instance or use a cloud-based service like MongoDB Atlas.
 4. Create a `.env` file with the following variables:
-  CLOUDINARY_CLOUD_NAME=cloudinary-cloud-name
-  CLOUDINARY_KEY=cloudinary-key
-  CLOUDINARY_SECRET=cloudinary-url
-  DB_URL=database-url
-  SECRET=your-session-secret
+  - CLOUDINARY_CLOUD_NAME=cloudinary-cloud-name
+  - CLOUDINARY_KEY=cloudinary-key
+  - CLOUDINARY_SECRET=cloudinary-url
+  - DB_URL=database-url
+  - SECRET=your-session-secret
 5. Run the app: `npm start`
 
 ## Technologies Used
