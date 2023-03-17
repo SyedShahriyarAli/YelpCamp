@@ -15,7 +15,7 @@ Yelpcamp has the following features:
 
 To install Yelpcamp, follow these steps:
 
-1. Clone this repository: `git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git`
+1. Clone this repository: `git clone https://github.com/SyedShahriyarAli/YelpCamp.git`
 2. Install the necessary dependencies: `npm install`
 3. Set up a local MongoDB instance or use a cloud-based service like MongoDB Atlas.
 4. Create a `.env` file with the following variables:
