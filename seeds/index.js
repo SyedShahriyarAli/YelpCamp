@@ -3,7 +3,7 @@ const cities = require('./cities.js');
 const Campgroud = require('../Models/Campgroud');
 const { places, descriptors } = require('./seedHelpers');
 
-mongoose.connect('mongodb+srv://syedshahriyarali:y4RatJdxNP2G4tAc@cluster0.ttnjb.mongodb.net/yelpCamp?retryWrites=true&w=majority', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
+mongoose.connect('your_mongo_db_url', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
 
 const db = mongoose.connection;
 db.on("error", console.error.bind("connection error:"));
